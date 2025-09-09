@@ -1,11 +1,10 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-namespace App\Controllers;
+class Home extends CI_Controller {
 
-class Home extends BaseController
-{
-    public function index(): string
+    public function index()
     {
-        return view('welcome_message');
+        echo "Home Controller Works!";
     }
 }
