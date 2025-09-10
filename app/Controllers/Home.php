@@ -72,12 +72,17 @@ class Home extends BaseController
             'page_title' => 'Get in Touch',
             'contact_info' => [
                 'email' => 'info@lms-terrado.com',
-                'phone' => '+1 (555) 123-4567',
-                'address' => '123 Education Street, Learning City, LC 12345',
-                'hours' => 'Monday - Friday: 9:00 AM - 6:00 PM'
+                'phone' => '+63 912 345 6789',
+                'address' => '123 Education Street, Manila, Philippines 1000',
+                'hours' => 'Monday - Friday: 9:00 AM - 6:00 PM (PST)'
             ]
         ];
         
         return view('contact', $data);
+    }
+
+    public function test()
+    {
+        return view('test');
     }
 }
