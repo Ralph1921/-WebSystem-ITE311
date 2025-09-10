@@ -58,13 +58,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-book-fill me-1"></i>Courses
+                        <a class="nav-link <?= (strpos(current_url(), '/about') !== false) ? 'active' : '' ?>" href="<?= base_url('/about') ?>">
+                            <i class="bi bi-info-circle-fill me-1"></i>About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= (strpos(current_url(), '/contact') !== false) ? 'active' : '' ?>" href="<?= base_url('/contact') ?>">
+                            <i class="bi bi-envelope-fill me-1"></i>Contact
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="bi bi-person-fill me-1"></i>Profile
+                            <i class="bi bi-book-fill me-1"></i>Courses
                         </a>
                     </li>
                 </ul>

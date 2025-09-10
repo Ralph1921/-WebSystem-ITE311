@@ -33,6 +33,51 @@ class Home extends BaseController
             ]
         ];
         
-        return view('home', $data);
+        return view('index', $data);
+    }
+
+    public function about()
+    {
+        $data = [
+            'title' => 'About Us - Learning Management System',
+            'page_title' => 'About Our LMS',
+            'mission' => 'To provide accessible, high-quality education through innovative technology.',
+            'vision' => 'To be the leading platform for online learning and skill development.',
+            'team' => [
+                [
+                    'name' => 'Dr. Sarah Johnson',
+                    'position' => 'Chief Academic Officer',
+                    'description' => 'Expert in educational technology with 15+ years of experience.'
+                ],
+                [
+                    'name' => 'Michael Chen',
+                    'position' => 'Lead Developer',
+                    'description' => 'Full-stack developer specializing in learning management systems.'
+                ],
+                [
+                    'name' => 'Emily Rodriguez',
+                    'position' => 'UX Designer',
+                    'description' => 'User experience designer focused on creating intuitive learning interfaces.'
+                ]
+            ]
+        ];
+        
+        return view('about', $data);
+    }
+
+    public function contact()
+    {
+        $data = [
+            'title' => 'Contact Us - Learning Management System',
+            'page_title' => 'Get in Touch',
+            'contact_info' => [
+                'email' => 'info@lms-terrado.com',
+                'phone' => '+1 (555) 123-4567',
+                'address' => '123 Education Street, Learning City, LC 12345',
+                'hours' => 'Monday - Friday: 9:00 AM - 6:00 PM'
+            ]
+        ];
+        
+        return view('contact', $data);
     }
 }
