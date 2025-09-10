@@ -8,43 +8,53 @@ class Migrations extends BaseConfig
 {
     /**
      * --------------------------------------------------------------------------
-     * Enable/Disable Migrations
+     * Migrations Enabled
      * --------------------------------------------------------------------------
-     *
-     * Migrations are enabled by default.
-     *
-     * You should enable migrations whenever you intend to do a schema migration
-     * and disable it back when you're done.
+     * If true, migrations are enabled.
      */
-    public bool $enabled = true;
+    public $enabled = TRUE;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Migrations Type
+     * --------------------------------------------------------------------------
+     * 'sequential' or 'timestamp'.
+     * 
+     * - 'sequential' means migration filenames start with a number (001_…)
+     * - 'timestamp' means filenames start with a timestamp
+     */
+    public $type = 'sequential';
 
     /**
      * --------------------------------------------------------------------------
      * Migrations Table
      * --------------------------------------------------------------------------
-     *
-     * This is the name of the table that will store the current migrations state.
-     * When migrations runs it will store in a database table which migration
-     * files have already been run.
+     * Name of the table that keeps track of which migrations have run.
      */
-    public string $table = 'migrations';
+    public $table = 'migrations';
 
     /**
      * --------------------------------------------------------------------------
-     * Timestamp Format
+     * Auto Migrate To Latest
      * --------------------------------------------------------------------------
-     *
-     * This is the format that will be used when creating new migrations
-     * using the CLI command:
-     *   > php spark make:migration
-     *
-     * NOTE: if you set an unsupported format, migration runner will not find
-     *       your migration files.
-     *
-     * Supported formats:
-     * - YmdHis_
-     * - Y-m-d-His_
-     * - Y_m_d_His_
+     * If true, running the app automatically migrates to the latest version.
+     * Usually false in production.
      */
-    public string $timestampFormat = 'Y-m-d-His_';
+    public $autoMigrate = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Migrations Namespace
+     * --------------------------------------------------------------------------
+     * Default namespace for migrations.
+     */
+    public $namespace = 'App\Database\Migrations';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Default Directory
+     * --------------------------------------------------------------------------
+     * The folder that holds all migration files.
+     */
+    public $directory = APPPATH . 'Database/Migrations';
 }
