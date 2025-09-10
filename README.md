@@ -1,60 +1,209 @@
-# CodeIgniter 4 Framework
+# Learning Management System (LMS) - ITE311
 
-## What is CodeIgniter?
+A comprehensive Learning Management System built with CodeIgniter 4 and Bootstrap 5.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## 🚀 Features
 
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+- **Modern UI/UX**: Built with Bootstrap 5 and Bootstrap Icons
+- **Responsive Design**: Mobile-first approach with responsive navigation
+- **Database Integration**: Complete database schema with migrations and seeders
+- **User Management**: Support for students, instructors, and administrators
+- **Course Management**: Full course and lesson management system
+- **Quiz System**: Interactive quizzes with multiple choice questions
+- **Progress Tracking**: Student enrollment and submission tracking
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## 🛠️ Technology Stack
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- **Backend**: PHP 8.0+ with CodeIgniter 4
+- **Frontend**: Bootstrap 5, Bootstrap Icons
+- **Database**: MySQL/MariaDB
+- **Server**: XAMPP/WAMP/LAMP
 
-## Important Change with index.php
+## 📋 Prerequisites
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Before running this project, make sure you have:
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+- PHP 8.0 or higher
+- MySQL/MariaDB
+- XAMPP, WAMP, or LAMP server
+- Git (for version control)
+- Composer (for dependency management)
 
-**Please** read the user guide for a better explanation of how CI4 works!
+## 🚀 Installation
 
-## Repository Management
+### Step 1: Clone the Repository
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+```bash
+git clone https://github.com/yourusername/WebSystem-ITE311.git
+cd WebSystem-ITE311
+```
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+### Step 2: Install Dependencies
 
-## Contributing
+```bash
+composer install
+```
 
-We welcome contributions from the community.
+### Step 3: Database Setup
 
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
+1. Create a new database named `lms_terrado` in your MySQL server
+2. Update database configuration in `app/Config/Database.php` if needed
+3. Run migrations to create tables:
 
-## Server Requirements
+```bash
+php spark migrate
+```
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+4. Seed the database with sample data:
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+```bash
+php spark db:seed DatabaseSeeder
+```
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+### Step 4: Configure Environment
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+1. Copy the `env` file to `.env`
+2. Update the configuration as needed
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+### Step 5: Run the Application
+
+Start the development server:
+
+```bash
+php spark serve
+```
+
+Visit `http://localhost:8080` or `http://127.0.0.1:8080` in your browser.
+
+## 📁 Project Structure
+
+```
+ITE311-TERRADO/
+├── app/
+│   ├── Config/          # Configuration files
+│   ├── Controllers/     # Application controllers
+│   ├── Database/        # Migrations and seeders
+│   ├── Models/          # Data models
+│   └── Views/           # View templates
+├── public/              # Web accessible files
+├── system/              # CodeIgniter system files
+├── vendor/              # Composer dependencies
+└── writable/            # Writable directories
+```
+
+## 🗄️ Database Schema
+
+The application includes the following main tables:
+
+- **users**: User accounts (students, instructors, admins)
+- **courses**: Course information
+- **lessons**: Lesson content
+- **quizzes**: Quiz questions and answers
+- **enrollments**: Student course enrollments
+- **submissions**: Quiz submissions and scores
+
+## 🎨 UI Components
+
+### Navigation
+- Responsive navbar with Bootstrap 5
+- Mobile-friendly hamburger menu
+- Active page highlighting
+
+### Homepage Sections
+- **Hero Section**: Welcome message with call-to-action buttons
+- **Features Section**: Key LMS features with icons
+- **Statistics Section**: Platform statistics
+- **Call-to-Action**: Registration and course browsing
+
+### Styling
+- Custom CSS for enhanced visual appeal
+- Bootstrap 5 utility classes
+- Responsive grid system
+- Modern color scheme
+
+## 🔧 Development
+
+### Running Migrations
+
+```bash
+# Run all pending migrations
+php spark migrate
+
+# Rollback last migration
+php spark migrate:rollback
+
+# Reset all migrations
+php spark migrate:reset
+```
+
+### Running Seeders
+
+```bash
+# Run all seeders
+php spark db:seed DatabaseSeeder
+
+# Run specific seeder
+php spark db:seed UserSeeder
+```
+
+### Creating New Migrations
+
+```bash
+php spark make:migration CreateNewTable
+```
+
+### Creating New Seeders
+
+```bash
+php spark make:seeder NewSeeder
+```
+
+## 📱 Responsive Design
+
+The application is fully responsive and works on:
+- Desktop computers
+- Tablets
+- Mobile phones
+
+## 🎯 Default Login Credentials
+
+For testing purposes, you can use these credentials:
+
+- **Admin**: admin@lms.com / admin123
+- **Instructor**: instructor@lms.com / instructor123
+- **Student**: jane.student@lms.com / student123
+
+## 📊 Sample Data
+
+The application comes with sample data including:
+- 5 users (1 admin, 1 instructor, 3 students)
+- 4 courses (Web Development, Database, PHP, CodeIgniter)
+- 9 lessons across different courses
+- 8 quiz questions
+- 6 student enrollments
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**TERRADO** - ITE311 Student
+
+## 📞 Support
+
+If you have any questions or need help, please contact:
+- Email: your.email@example.com
+- GitHub: [@yourusername](https://github.com/yourusername)
+
+---
+
+**Note**: This is a learning project for ITE311 course. The application is designed for educational purposes and demonstrates modern web development practices with CodeIgniter 4 and Bootstrap 5.
