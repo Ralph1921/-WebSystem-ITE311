@@ -1,137 +1,85 @@
-<?= $this->extend('Template') ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - WebSystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .navbar { background-color: #2f4154 !important; }
+        .navbar-brand { color: #fff !important; font-weight: 600; letter-spacing: .3px; }
+        .navbar-nav .nav-link { color: rgba(255,255,255,0.75) !important; }
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active { color: white !important; }
+        .main-content { background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 3rem; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="<?= base_url() ?>">WebSystem</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-2">
+                    <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="<?= base_url('index.php/about') ?>">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= base_url('index.php/contact') ?>">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<?= $this->section('content') ?>
-
-<!-- Hero Section -->
-<section class="hero-section">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8 mx-auto text-center">
-                <h1 class="display-4 fw-bold mb-4"><?= $page_title ?></h1>
-                <p class="lead mb-4">
-                    Learn more about our mission, vision, and the dedicated team behind our Learning Management System.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="main-content">
 
-<!-- Mission & Vision Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card feature-card h-100 text-center p-4">
-                    <div class="card-body">
-                        <i class="bi bi-bullseye text-primary mb-3" style="font-size: 3rem;"></i>
-                        <h5 class="card-title">Our Mission</h5>
-                        <p class="card-text text-muted"><?= $mission ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card feature-card h-100 text-center p-4">
-                    <div class="card-body">
-                        <i class="bi bi-eye-fill text-primary mb-3" style="font-size: 3rem;"></i>
-                        <h5 class="card-title">Our Vision</h5>
-                        <p class="card-text text-muted"><?= $vision ?></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <h1 class="mb-4">About Us</h1>
+    <p><strong>Mission:</strong> We strive to provide the best services to our customers and ensure satisfaction in every project we undertake.</p>
+    <p><strong>Vision:</strong> Our team consists of dedicated professionals with expertise in various fields, working together to achieve excellence.</p>
 
-<!-- Team Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center mb-5">
-                <h2 class="display-5 fw-bold">Meet Our Team</h2>
-                <p class="lead text-muted">The passionate individuals behind our platform</p>
+    <h3 class="mt-5">Our Team</h3>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Team Member</h5>
+                    <h6 class="text-muted">Position</h6>
+                    <p>Short description about the team member.</p>
+                </div>
             </div>
         </div>
-        
-        <div class="row g-4">
-            <?php foreach ($team as $member): ?>
-            <div class="col-md-4">
-                <div class="card feature-card h-100 text-center p-4">
-                    <div class="card-body">
-                        <i class="bi bi-person-circle text-primary mb-3" style="font-size: 4rem;"></i>
-                        <h5 class="card-title"><?= $member['name'] ?></h5>
-                        <h6 class="card-subtitle mb-3 text-muted"><?= $member['position'] ?></h6>
-                        <p class="card-text text-muted"><?= $member['description'] ?></p>
-                    </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Team Member</h5>
+                    <h6 class="text-muted">Position</h6>
+                    <p>Short description about the team member.</p>
                 </div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-
-<!-- Company Values Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center mb-5">
-                <h2 class="display-5 fw-bold">Our Values</h2>
-                <p class="lead text-muted">The principles that guide everything we do</p>
             </div>
         </div>
-        
-        <div class="row g-4">
-            <div class="col-md-3">
-                <div class="text-center">
-                    <i class="bi bi-heart-fill text-primary mb-3" style="font-size: 3rem;"></i>
-                    <h5>Passion</h5>
-                    <p class="text-muted">We are passionate about education and technology.</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="text-center">
-                    <i class="bi bi-shield-check text-primary mb-3" style="font-size: 3rem;"></i>
-                    <h5>Quality</h5>
-                    <p class="text-muted">We maintain the highest standards in everything we do.</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="text-center">
-                    <i class="bi bi-people-fill text-primary mb-3" style="font-size: 3rem;"></i>
-                    <h5>Community</h5>
-                    <p class="text-muted">We believe in building strong learning communities.</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="text-center">
-                    <i class="bi bi-lightbulb-fill text-primary mb-3" style="font-size: 3rem;"></i>
-                    <h5>Innovation</h5>
-                    <p class="text-muted">We continuously innovate to improve learning experiences.</p>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Team Member</h5>
+                    <h6 class="text-muted">Position</h6>
+                    <p>Short description about the team member.</p>
                 </div>
             </div>
         </div>
     </div>
-</section>
-
-<!-- Call to Action -->
-<section class="py-5 bg-primary text-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="display-6 fw-bold mb-4">Ready to Join Our Learning Community?</h2>
-                <p class="lead mb-4">
-                    Start your educational journey with us today and discover the power of online learning.
-                </p>
-                <div class="d-flex justify-content-center gap-3 flex-wrap">
-                    <a href="<?= base_url('/contact') ?>" class="btn btn-light btn-lg">
-                        <i class="bi bi-envelope-fill me-2"></i>Contact Us
-                    </a>
-                    <a href="<?= base_url('/') ?>" class="btn btn-outline-light btn-lg">
-                        <i class="bi bi-house-fill me-2"></i>Back to Home
-                    </a>
                 </div>
             </div>
         </div>
     </div>
-</section>
 
-<?= $this->endSection() ?>
+    <footer class="mt-5 py-4" style="background:#2f4154;color:#fff;">
+        <div class="container text-center">&copy; 2025 My Website</div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
