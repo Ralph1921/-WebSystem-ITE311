@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -75,7 +73,7 @@ class CacheFactory
             }
         }
 
-        // If $adapter->initialize() throws a CriticalError exception, we will attempt to
+        // If $adapter->initialization throws a CriticalError exception, we will attempt to
         // use the $backup handler, if that also fails, we resort to the dummy handler.
         try {
             $adapter->initialize();

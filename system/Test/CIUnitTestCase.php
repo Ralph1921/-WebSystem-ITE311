@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -238,7 +236,7 @@ abstract class CIUnitTestCase extends TestCase
     {
         parent::setUp();
 
-        if (! $this->app instanceof CodeIgniter) {
+        if (! $this->app) {
             $this->app = $this->createApplication();
         }
 
@@ -299,8 +297,6 @@ abstract class CIUnitTestCase extends TestCase
 
     /**
      * Resets shared instanced for all Factories components
-     *
-     * @return void
      */
     protected function resetFactories()
     {
@@ -309,8 +305,6 @@ abstract class CIUnitTestCase extends TestCase
 
     /**
      * Resets shared instanced for all Services
-     *
-     * @return void
      */
     protected function resetServices(bool $initAutoloader = true)
     {
@@ -319,8 +313,6 @@ abstract class CIUnitTestCase extends TestCase
 
     /**
      * Injects the mock Cache driver to prevent filesystem collisions
-     *
-     * @return void
      */
     protected function mockCache()
     {
@@ -329,8 +321,6 @@ abstract class CIUnitTestCase extends TestCase
 
     /**
      * Injects the mock email driver so no emails really send
-     *
-     * @return void
      */
     protected function mockEmail()
     {
@@ -339,8 +329,6 @@ abstract class CIUnitTestCase extends TestCase
 
     /**
      * Injects the mock session driver into Services
-     *
-     * @return void
      */
     protected function mockSession()
     {
@@ -371,7 +359,7 @@ abstract class CIUnitTestCase extends TestCase
         $this->assertTrue($result, sprintf(
             'Failed asserting that expected message "%s" with level "%s" was logged.',
             $expectedMessage ?? '',
-            $level,
+            $level
         ));
 
         return $result;
@@ -384,11 +372,11 @@ abstract class CIUnitTestCase extends TestCase
     {
         $this->assertTrue(
             TestLogger::didLog($level, $logMessage, false),
-            $message !== '' ? $message : sprintf(
+            $message ?: sprintf(
                 'Failed asserting that logs have a record of message containing "%s" with level "%s".',
                 $logMessage,
-                $level,
-            ),
+                $level
+            )
         );
     }
 
@@ -427,7 +415,7 @@ abstract class CIUnitTestCase extends TestCase
     {
         $this->assertNotNull(
             $this->getHeaderEmitted($header, $ignoreCase, __METHOD__),
-            "Didn't find header for {$header}",
+            "Didn't find header for {$header}"
         );
     }
 
@@ -441,7 +429,7 @@ abstract class CIUnitTestCase extends TestCase
     {
         $this->assertNull(
             $this->getHeaderEmitted($header, $ignoreCase, __METHOD__),
-            "Found header for {$header}",
+            "Found header for {$header}"
         );
     }
 
@@ -451,9 +439,7 @@ abstract class CIUnitTestCase extends TestCase
      * where the result is close but not exactly equal to the
      * expected time, for reasons beyond our control.
      *
-     * @param float|int $actual
-     *
-     * @return void
+     * @param mixed $actual
      *
      * @throws Exception
      */
@@ -473,7 +459,7 @@ abstract class CIUnitTestCase extends TestCase
      * @param mixed $expected
      * @param mixed $actual
      *
-     * @return bool|null
+     * @return bool|void
      *
      * @throws Exception
      */
@@ -491,11 +477,9 @@ abstract class CIUnitTestCase extends TestCase
             $difference = abs($expected - $actual);
 
             $this->assertLessThanOrEqual($tolerance, $difference, $message);
-        } catch (Exception) {
+        } catch (Exception $e) {
             return false;
         }
-
-        return null;
     }
 
     // --------------------------------------------------------------------
@@ -511,7 +495,7 @@ abstract class CIUnitTestCase extends TestCase
     protected function createApplication()
     {
         // Initialize the autoloader.
-        service('autoloader')->initialize(new Autoload(), new Modules());
+        Services::autoloader()->initialize(new Autoload(), new Modules());
 
         $app = new MockCodeIgniter(new App());
         $app->initialize();
@@ -530,8 +514,8 @@ abstract class CIUnitTestCase extends TestCase
 
         foreach (xdebug_get_headers() as $emittedHeader) {
             $found = $ignoreCase
-                ? (str_starts_with(strtolower($emittedHeader), strtolower($header)))
-                : (str_starts_with($emittedHeader, $header));
+                ? (stripos($emittedHeader, $header) === 0)
+                : (strpos($emittedHeader, $header) === 0);
 
             if ($found) {
                 return $emittedHeader;

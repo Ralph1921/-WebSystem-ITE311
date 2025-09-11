@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -154,8 +152,6 @@ class DatabaseHandler extends BaseHandler
 
     /**
      * Sets SELECT clause
-     *
-     * @return void
      */
     protected function setSelect(BaseBuilder $builder)
     {
@@ -284,10 +280,13 @@ class DatabaseHandler extends BaseHandler
     #[ReturnTypeWillChange]
     public function gc($max_lifetime)
     {
+        $separator = ' ';
+        $interval  = implode($separator, ['', "{$max_lifetime} second", '']);
+
         return $this->db->table($this->table)->where(
             'timestamp <',
-            "now() - INTERVAL {$max_lifetime} second",
-            false,
+            "now() - INTERVAL {$interval}",
+            false
         )->delete() ? 1 : $this->fail();
     }
 

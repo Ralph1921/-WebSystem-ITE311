@@ -36,6 +36,37 @@ class Cache extends BaseConfig
 
     /**
      * --------------------------------------------------------------------------
+     * Cache Directory Path
+     * --------------------------------------------------------------------------
+     *
+     * The path to where cache files should be stored, if using a file-based
+     * system.
+     *
+     * @deprecated Use the driver-specific variant under $file
+     */
+    public string $storePath = WRITEPATH . 'cache/';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Cache Include Query String
+     * --------------------------------------------------------------------------
+     *
+     * Whether to take the URL query string into consideration when generating
+     * output cache files. Valid options are:
+     *
+     *    false = Disabled
+     *    true  = Enabled, take all query parameters into account.
+     *            Please be aware that this may result in numerous cache
+     *            files generated for the same page over and over again.
+     *    ['q'] = Enabled, but only take into account the specified list
+     *            of query parameters.
+     *
+     * @var bool|list<string>
+     */
+    public $cacheQueryString = false;
+
+    /**
+     * --------------------------------------------------------------------------
      * Key Prefix
      * --------------------------------------------------------------------------
      *
@@ -74,11 +105,10 @@ class Cache extends BaseConfig
      * --------------------------------------------------------------------------
      * File settings
      * --------------------------------------------------------------------------
-     *
      * Your file storage preferences can be specified below, if you are using
      * the File driver.
      *
-     * @var array{storePath?: string, mode?: int}
+     * @var array<string, int|string|null>
      */
     public array $file = [
         'storePath' => WRITEPATH . 'cache/',
@@ -89,13 +119,12 @@ class Cache extends BaseConfig
      * -------------------------------------------------------------------------
      * Memcached settings
      * -------------------------------------------------------------------------
-     *
      * Your Memcached servers can be specified below, if you are using
      * the Memcached drivers.
      *
      * @see https://codeigniter.com/user_guide/libraries/caching.html#memcached
      *
-     * @var array{host?: string, port?: int, weight?: int, raw?: bool}
+     * @var array<string, bool|int|string>
      */
     public array $memcached = [
         'host'   => '127.0.0.1',
@@ -108,11 +137,10 @@ class Cache extends BaseConfig
      * -------------------------------------------------------------------------
      * Redis settings
      * -------------------------------------------------------------------------
-     *
      * Your Redis server can be specified below, if you are using
      * the Redis or Predis drivers.
      *
-     * @var array{host?: string, password?: string|null, port?: int, timeout?: int, database?: int}
+     * @var array<string, int|string|null>
      */
     public array $redis = [
         'host'     => '127.0.0.1',
@@ -140,23 +168,4 @@ class Cache extends BaseConfig
         'redis'     => RedisHandler::class,
         'wincache'  => WincacheHandler::class,
     ];
-
-    /**
-     * --------------------------------------------------------------------------
-     * Web Page Caching: Cache Include Query String
-     * --------------------------------------------------------------------------
-     *
-     * Whether to take the URL query string into consideration when generating
-     * output cache files. Valid options are:
-     *
-     *    false = Disabled
-     *    true  = Enabled, take all query parameters into account.
-     *            Please be aware that this may result in numerous cache
-     *            files generated for the same page over and over again.
-     *    ['q'] = Enabled, but only take into account the specified list
-     *            of query parameters.
-     *
-     * @var bool|list<string>
-     */
-    public $cacheQueryString = false;
 }

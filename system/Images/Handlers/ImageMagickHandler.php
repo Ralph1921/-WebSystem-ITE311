@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of CodeIgniter 4 framework.
  *
@@ -42,7 +40,7 @@ class ImageMagickHandler extends BaseHandler
     {
         parent::__construct($config);
 
-        if (! extension_loaded('imagick') && ! class_exists(Imagick::class)) {
+        if (! (extension_loaded('imagick') || class_exists(Imagick::class))) {
             throw ImageException::forMissingExtension('IMAGICK'); // @codeCoverageIgnore
         }
 
@@ -81,9 +79,9 @@ class ImageMagickHandler extends BaseHandler
             $escape = '';
         }
 
-        $action = $maintainRatio
-            ? ' -resize ' . ($this->width ?? 0) . 'x' . ($this->height ?? 0) . ' ' . escapeshellarg($source) . ' ' . escapeshellarg($destination)
-            : ' -resize ' . ($this->width ?? 0) . 'x' . ($this->height ?? 0) . "{$escape}! " . escapeshellarg($source) . ' ' . escapeshellarg($destination);
+        $action = $maintainRatio === true
+            ? ' -resize ' . ($this->width ?? 0) . 'x' . ($this->height ?? 0) . ' "' . $source . '" "' . $destination . '"'
+            : ' -resize ' . ($this->width ?? 0) . 'x' . ($this->height ?? 0) . "{$escape}! \"" . $source . '" "' . $destination . '"';
 
         $this->process($action);
 
@@ -329,6 +327,8 @@ class ImageMagickHandler extends BaseHandler
     /**
      * Handler-specific method for overlaying text on an image.
      *
+     * @return void
+     *
      * @throws Exception
      */
     protected function _text(string $text, array $options = [])
@@ -354,7 +354,7 @@ class ImageMagickHandler extends BaseHandler
 
         // Font
         if (! empty($options['fontPath'])) {
-            $cmd .= ' -font ' . escapeshellarg($options['fontPath']);
+            $cmd .= " -font '{$options['fontPath']}'";
         }
 
         if (isset($options['hAlign'], $options['vAlign'])) {
@@ -393,28 +393,28 @@ class ImageMagickHandler extends BaseHandler
             $xAxis = $xAxis >= 0 ? '+' . $xAxis : $xAxis;
             $yAxis = $yAxis >= 0 ? '+' . $yAxis : $yAxis;
 
-            $cmd .= ' -gravity ' . escapeshellarg($gravity) . ' -geometry ' . escapeshellarg("{$xAxis}{$yAxis}");
+            $cmd .= " -gravity {$gravity} -geometry {$xAxis}{$yAxis}";
         }
 
         // Color
         if (isset($options['color'])) {
             [$r, $g, $b] = sscanf("#{$options['color']}", '#%02x%02x%02x');
 
-            $cmd .= ' -fill ' . escapeshellarg("rgba({$r},{$g},{$b},{$options['opacity']})");
+            $cmd .= " -fill 'rgba({$r},{$g},{$b},{$options['opacity']})'";
         }
 
         // Font Size - use points....
         if (isset($options['fontSize'])) {
-            $cmd .= ' -pointsize ' . escapeshellarg((string) $options['fontSize']);
+            $cmd .= " -pointsize {$options['fontSize']}";
         }
 
         // Text
-        $cmd .= ' -annotate 0 ' . escapeshellarg($text);
+        $cmd .= " -annotate 0 '{$text}'";
 
         $source      = ! empty($this->resource) ? $this->resource : $this->image()->getPathname();
         $destination = $this->getResourcePath();
 
-        $cmd = ' ' . escapeshellarg($source) . ' ' . $cmd . ' ' . escapeshellarg($destination);
+        $cmd = " '{$source}' {$cmd} '{$destination}'";
 
         $this->process($cmd);
     }
@@ -453,15 +453,30 @@ class ImageMagickHandler extends BaseHandler
     {
         $orientation = $this->getEXIF('Orientation', $silent);
 
-        return match ($orientation) {
-            2       => $this->flip('horizontal'),
-            3       => $this->rotate(180),
-            4       => $this->rotate(180)->flip('horizontal'),
-            5       => $this->rotate(90)->flip('horizontal'),
-            6       => $this->rotate(90),
-            7       => $this->rotate(270)->flip('horizontal'),
-            8       => $this->rotate(270),
-            default => $this,
-        };
+        switch ($orientation) {
+            case 2:
+                return $this->flip('horizontal');
+
+            case 3:
+                return $this->rotate(180);
+
+            case 4:
+                return $this->rotate(180)->flip('horizontal');
+
+            case 5:
+                return $this->rotate(90)->flip('horizontal');
+
+            case 6:
+                return $this->rotate(90);
+
+            case 7:
+                return $this->rotate(270)->flip('horizontal');
+
+            case 8:
+                return $this->rotate(270);
+
+            default:
+                return $this;
+        }
     }
 }
